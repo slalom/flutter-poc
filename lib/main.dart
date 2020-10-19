@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -81,32 +83,40 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Scrollbar(
-        child: ListView.separated(
-            padding: const EdgeInsets.all(24.0),
+        child: ListView.builder(
             itemCount: items.length,
+            itemExtent: 128,
             itemBuilder: (BuildContext context, int index) {
-              return Container(
-                height: 100,
-                child: Center(child: Text(items[index])),
-                decoration: BoxDecoration(
-                  color: colorCodes[index],
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.blueGrey.withOpacity(0.4),
-                      spreadRadius: 2,
-                      blurRadius: 5,
-                      offset: Offset(4, 4)
-                    ),
-                  ],
+              return Card(
+                elevation: 5,
+                margin: EdgeInsets.fromLTRB(16, 8, 16, 8),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                shadowColor: Colors.grey,
+                color: colorCodes[index],
+                child: ListTile(
+                  title: Center(
+                      child: Text(
+                        items[index],
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            shadows: <Shadow>[
+                              Shadow(color: Colors.black.withOpacity(0.3), blurRadius: 7.0, offset: Offset(0, 4))
+                            ]
+                        ),
+                        textScaleFactor: 1.2,
+                      ),
+                  ),
+                  onTap: () {
+                    print(items[index]);
+                  },
                 ),
               );
             },
-            separatorBuilder: (BuildContext context, int index) => const Divider(),
         ),
-      )
+      ),
     );
   }
-
-
 }

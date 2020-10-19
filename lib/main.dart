@@ -111,11 +111,38 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   onTap: () {
                     print(items[index]);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => QuestionsPage(title: items[index]))
+                    );
                   },
                 ),
               );
             },
         ),
+      ),
+    );
+  }
+}
+
+class QuestionsPage extends StatefulWidget {
+  QuestionsPage({Key key, this.title}): super(key: key);
+
+  final String title;
+
+  @override
+  State<StatefulWidget> createState() => QuestionsPageState();
+}
+
+class QuestionsPageState extends State<QuestionsPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(
+        child: Text("Questions will appear here!"),
       ),
     );
   }
